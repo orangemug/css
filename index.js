@@ -77,7 +77,7 @@ module.exports = function (file, opts) {
     var className = sha1(file).substring(0, 10);
 
     var cssText = postcss([
-        prefix({prefix: "."+className+" "}),
+        // prefix({prefix: "."+className+" "}),
         autoprefixer
       ])
       .process(css)
@@ -85,7 +85,7 @@ module.exports = function (file, opts) {
       .toString();
 
     var rawJs = "{"
-      +"stylesheet: React.createElement(\"style\", {dangerouslySetInnerHTML: {__html: "+JSON.stringify(css)+"}}),"
+      +"stylesheet: React.createElement(\"style\", {dangerouslySetInnerHTML: {__html: "+JSON.stringify(cssText)+"}}),"
       +"rootClassName: "+JSON.stringify(className)
     +"}";
 
@@ -100,7 +100,7 @@ module.exports.react = function(file) {
   var className = sha1(file).substring(0, 10);
 
   var cssText = postcss([
-    prefix({prefix: "."+className+" "}),
+    // prefix({prefix: "."+className+" "}),
     autoprefixer
   ])
   .process(css)
@@ -109,7 +109,7 @@ module.exports.react = function(file) {
 
   return {
     stylesheet: React.createElement("style", {
-      dangerouslySetInnerHTML: {__html: css}
+      dangerouslySetInnerHTML: {__html: cssText}
     }),
     rootClassName: className
   };
